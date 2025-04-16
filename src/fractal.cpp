@@ -17,6 +17,8 @@ using namespace std;
 /*Uncomment the following line for visualization of the bitmap*/
 //#define DISPLAY 1
 
+//#define NUM_THREADS 16
+
 struct cuComplex {
     float   r;
     float   i;
@@ -205,6 +207,9 @@ int main( void ) {
     double start, finish_s, finish_p, finish_1d_row, finish_1d_col, 
     finish_2d_row_block, finish_2d_col_block, finish_omp_for; 
     
+    int NUM_THREADS = omp_get_max_threads();
+    omp_set_num_threads(NUM_THREADS);
+
     /*Serial run*/
     start = omp_get_wtime();
     kernel_serial( ptr_s );
@@ -240,7 +245,7 @@ int main( void ) {
     kernel_omp_For( ptr_p );
     finish_omp_for = omp_get_wtime() - start;
     
-    cout << "Elapsed time: " << endl;
+    cout << "Elapsed time: Using " << NUM_THREADS << " Threads" << endl;
     cout << "Serial time: " << finish_s << endl;
     //cout << "Parallel time: " << finish_p << endl;
     cout << "1D Row Parallel time: " << finish_1d_row << endl;

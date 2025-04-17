@@ -173,7 +173,7 @@ void kernel_omp_2D_Col_Block(unsigned char *ptr) {
 //OpenMP for
 void kernel_omp_For(unsigned char *ptr) {
 
-    #pragma omp parallel for //collapse(2)
+    #pragma omp parallel for collapse(2)
     for (int y = 0; y < DIM; y++) {
         for (int x = 0; x < DIM; x++) {
             int offset = x + y * DIM;
